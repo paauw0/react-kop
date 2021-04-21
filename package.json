@@ -1,36 +1,56 @@
 {
   "name": "react-kop",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "description": "React components library",
+  "author": "paauw",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "keywords": [
+    "React",
+    "Component",
+    "UI"
+  ],
+  "homepage": "https://github.com/paauw0/react-kop",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paauw0/react-kop"
+  },
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "@types/classnames": "^2.2.11",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@types/react-transition-group": "^4.4.1",
+    "axios": "^0.21.1",
     "classnames": "^2.3.1",
-    "node-sass": "^5.0.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "react-transition-group": "^4.4.1",
-    "typescript": "^4.1.2",
-    "web-vitals": "^1.0.1"
+    "react-transition-group": "^4.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "clean": "rimraf ./dist",
+    "lint": "eslint --ext js,ts,tsx src --max-warnings 5",
+    "build": "yarn clean && yarn build-ts && yarn build-css",
     "test": "react-scripts test",
+    "test:nowatch": "cross-env CI=true react-scripts test",
     "eject": "react-scripts eject",
+    "build-ts": "tsc -p tsconfig.build.json",
+    "build-css": "node-sass ./src/styles/index.scss ./dist/index.css",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "prepublishOnly": "yarn test:nowatch && yarn lint && yarn build"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run test:nowatch && npm run lint"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -62,10 +82,30 @@
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.2.8",
+    "@storybook/addon-docs": "^6.2.8",
     "@storybook/addon-essentials": "^6.2.8",
     "@storybook/addon-links": "^6.2.8",
     "@storybook/node-logger": "^6.2.8",
     "@storybook/preset-create-react-app": "^3.1.7",
-    "@storybook/react": "^6.2.8"
+    "@storybook/react": "^6.2.8",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@types/classnames": "^2.2.11",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-transition-group": "^4.4.1",
+    "babel-loader": "8.1.0",
+    "cross-env": "^7.0.3",
+    "husky": "^6.0.0",
+    "node-sass": "^5.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "4.0.3",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.1.2",
+    "web-vitals": "^1.0.1"
   }
 }

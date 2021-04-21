@@ -22,9 +22,16 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+/md
+
 design.md
 structure.md
 test.md
 fontIcon.md
 plugin.md
 storybook.md
+upload.md
+onlineApi.md
+link.md
+tsconfig.build.json.md
+package.json.md

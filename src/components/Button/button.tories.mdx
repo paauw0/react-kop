@@ -1,0 +1,13 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import Button from './button'
+
+<Meta title="MDX/Checkbox" component={Button} />
+
+
+export const Template = (args) => <Button {...args} />
+
+<Canvas>
+  <Story name="Button">
+    {Template.bind({})}
+   </Story>
+</Canvas>

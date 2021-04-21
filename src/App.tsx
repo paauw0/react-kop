@@ -1,129 +1,63 @@
-import React, { useState } from 'react';
-import Button from './components/Button/button'
-import Menu from './components/Menu/menu'
-import MenuItem from './components/Menu/menuItem'
-import SubMenu from './components/Menu/subMenu'
-import Icon from './components/Icon/icon'
-import Transition from './components/Transition/transition'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-// 引入所有图标
-import { fas } from '@fortawesome/free-solid-svg-icons'
-// 引入部分图标
-// import { faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons'
+const App: React.FC = () => {
+    const [ title, setTitle ] = useState('')
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+    const postData = {
+        title: 'my title',
+        body: 'hello man'
+    }
 
-library.add(fas)
-// library.add(faCheckSquare, faCoffee)
+    useEffect(() => {
+        // axios.get('https://jsonplaceholder.typicode.com/posts/1', {
+        //     headers: {
+        //         'X-Requested-With': 'XMLHttpRequest'
+        //     },
+        //     responseType: 'json'
+        // }).then(res => {
+        //     setTitle(res.data.title)
+        // })
+        // axios.post('https://jsonplaceholder.typicode.com/posts', postData).then(res => {
+        //     setTitle(res.data.title)
+        // })
+    })
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files
+        
+        if (files) {
+            const uploadedFile = files[0]
+            const formData = new FormData()
+            formData.append(uploadedFile.name, uploadedFile)
+            axios.post('https://jsonplaceholder.typicode.com/posts', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(res => {
+                console.log(res)
+            })
+        }
+    }
 
-function App() {
-  const [ show, setShow ] = useState(false)
-
-  return (
-    <div className="App">
-      <Button size='lg' onClick={() => {setShow(!show)}}> Toggle </Button>
-      <Transition
-        in={show}
-        timeout={300}
-        animation="zoom-in-left"
-      >
+    return (
         <div>
-          <p>
-            111111
-          </p>
-          <p>
-            222222
-          </p>
-          <p>
-            333333
-          </p>
-          <p>
-            444444
-          </p>
-          <p>
-            555555
-          </p>
-          <p>
-            666666
-          </p>
+            <h1>
+                {title}
+            </h1>
+
+            <hr />
+
+            {/* <form method="post" encType="multipart/form-data" action="https://jsonplaceholder.typicode.com/posts">
+                <input type="file" name="myFile" />
+                <button type="submit">Submit</button>
+            </form> */}
+
+            <hr />
+
+            <input type="file" name="myFile" onChange={handleFileChange} />
         </div>
-      </Transition>
-      <Transition
-        in={show}
-        timeout={300}
-        animation="zoom-in-top"
-        wrapper
-      >
-        <Button btnType='primary' size='lg'>A Large Button</Button>
-      </Transition>
-
-      <hr />
-
-      {/* <FontAwesomeIcon icon={faCoffee} size="10x" /> */}
-      <FontAwesomeIcon icon="coffee" size="10x" />
-      <Icon theme="danger" icon="coffee" size="10x" />
-      <Icon theme="success" icon="check-square" size="10x" />
-
-      <hr />
-
-      <Menu defaultIndex={'0'} onSelect={(index) => {alert(index)}}>
-        <MenuItem>
-          menu item 1
-        </MenuItem>
-        <MenuItem disabled>
-          menu item 2
-        </MenuItem>
-        <MenuItem>
-          menu item 3
-        </MenuItem>
-        <SubMenu title="dropdown">
-          <MenuItem>
-            menu item 11
-          </MenuItem>
-          <MenuItem disabled>
-            menu item 22
-          </MenuItem>
-          <MenuItem>
-            menu item 33
-          </MenuItem>
-        </SubMenu>
-      </Menu>
-      <Menu mode={'vertical'} defaultOpenSubMenus={['3']} defaultIndex={'0'} onSelect={(index) => {alert(index)}}>
-        <MenuItem>
-          menu item 1
-        </MenuItem>
-        <MenuItem disabled>
-          menu item 2
-        </MenuItem>
-        <MenuItem>
-          menu item 3
-        </MenuItem>
-        <SubMenu title="dropdown">
-          <MenuItem>
-            menu item 11
-          </MenuItem>
-          <MenuItem disabled>
-            menu item 22
-          </MenuItem>
-          <MenuItem>
-            menu item 33
-          </MenuItem>
-        </SubMenu>
-      </Menu>
-
-      <hr />
-
-      <Button className="custom" autoFocus>Hello</Button>
-      <Button onClick={(e) => {e.preventDefault(); alert(123);}}>Hello</Button>
-      <Button disabled>Disabled Button</Button>
-      <Button btnType='primary' size='lg'>Large Primary</Button>
-      <Button btnType='danger' size='sm'>Small Danger</Button>
-      <Button btnType='link' href="http://www.baidu.com" target="_blank">Baidu Link</Button>
-      <Button disabled btnType='link' href="http://www.baidu.com">Disabled Link</Button>
-    </div>
-  );
+    )
 }
 
-export default App;
+export default App
