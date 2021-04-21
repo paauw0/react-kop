@@ -77,7 +77,7 @@ $h6-font-size:                $font-size-base !default;
 $link-color:                  $primary !default;
 $link-decoration:             none !default;
 $link-hover-color:            darken($link-color, 15%) !default;
-$link-hover-decoration:       underline !default;
+$link-hover-decoration:       none !default;
 
 // body
 $body-bg:                     $white !default;

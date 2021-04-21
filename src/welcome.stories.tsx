@@ -1,15 +1,5 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import {
-    Title,
-    Subtitle,
-    Description,
-    Primary,
-    ArgsTable,
-    Stories,
-    // PRIMARY_STORY
-} from '@storybook/addon-docs/blocks';
 
 const Welcome = () => {
     return (

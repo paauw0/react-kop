@@ -1,16 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import {
-    Title,
-    Subtitle,
-    Description,
-    Primary,
-    ArgsTable,
-    Stories,
-    // PRIMARY_STORY
-} from '@storybook/addon-docs/blocks';
-
 import AutoComplete, { AutoCompleteProps, DataSourceType } from './autoComplete'
 
 import { library } from '@fortawesome/fontawesome-svg-core'

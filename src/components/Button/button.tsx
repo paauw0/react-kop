@@ -1,48 +1,46 @@
 import React from 'react'
 import classNames from 'classnames'
+import { SizeType } from '../config-provider/SizeContext'
 
-// export enum ButtonSize {
-//     Large = 'lg',
-//     Small = 'sm'
-// }
+type ButtonType = 'default' | 'primary' | 'dashed' | 'text' | 'ghost' | 'link' | 'danger'
 
-// export enum ButtonType {
-//     Primary = 'primary',
-//     Default = 'default',
-//     Danger = 'danger',
-//     Link = 'link'
-// }
+type ButtonShape = 'circle' | 'round'
 
-export type ButtonSize = 'lg' | 'sm'
+type ButtonHTMLType = 'submit' | 'button' | 'reset'
 
-export type ButtonType = 'primary' | 'default' | 'danger' | 'link'
-
-export interface BaseButtonProps {
-    /**
-     * className
-     */
+interface BaseButtonProps {
+    /** 设置 Button 的 class */
     className?: string;
+    /** 设置 Button 的类型 */
+    type?: ButtonType;
+    /** 设置 Button 的形状 */
+    shape?: ButtonShape;
+    /** 设置 Button 的尺寸 */
+    size?: SizeType;
     /** 设置 Button 的禁用 */
     disabled?: boolean;
-    /** 设置 Button 的尺寸 */
-    size?: ButtonSize;
-    /** 设置 Button 的类型 */
-    btnType?: ButtonType;
-    children: React.ReactNode;
-    href?: string;
+    /** 设置 Button 的背景透明 */
+    ghost?: boolean;
+    /** 设置 Button 的内容 */
+    children?: React.ReactNode;
 }
 
-type NativeButtonProps = BaseButtonProps & React.ButtonHTMLAttributes<HTMLElement>
-type AnchorButtonProps = BaseButtonProps & React.AnchorHTMLAttributes<HTMLElement>
+type NativeButtonProps = {
+    htmlType?: ButtonHTMLType;
+    onClick?: React.MouseEventHandler<HTMLElement>;
+} & BaseButtonProps& Omit<React.ButtonHTMLAttributes<any>, 'type' | 'onClick'>
+
+type AnchorButtonProps = {
+    href?: string;
+    target?: string;
+    onClick?: React.MouseEventHandler<HTMLElement>;
+} & BaseButtonProps & Omit<React.AnchorHTMLAttributes<any>, 'type' | 'onClick'>
 
 export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
 
-/** 
- * Description of prop "Button component" (a custom btnType).
- */
-const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
+const Button: React.FC<ButtonProps> = (props) => {
     const {
-        btnType,
+        type,
         className,
         disabled,
         size,
@@ -50,44 +48,47 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
         href,
         ...restProps
     } = props
-    // btn, btn-lg, btn-primary
-    const classes = classNames('btn', className, {
-        [`btn-${btnType}`]: btnType,
-        [`btn-${size}`]: size,
-        'disabled': (btnType === 'link') && disabled
+
+    const classes = classNames('kop-btn', className, {
+        [`kop-btn-${type}`]: type,
+        [`kop-btn-${size}`]: size,
+        'disabled': (type === 'link') && disabled
     })
-    if (btnType === 'link' && href) {
+
+    if (type === 'link' && href) {
         return (
-            <a
-                className={classes}
-                href={href}
-                {...restProps}
-            >
-                {children}
-            </a>
+            children
+                ?
+                    <a
+                        className={classes}
+                        href={href}
+                        {...restProps}
+                    >
+                        <span>{children}</span>
+                    </a>
+                :
+                    <></>
         )
     } else {
         return (
-            <button
-                className={classes}
-                disabled={disabled}
-                {...restProps}
-            >
-                {children}
-            </button>
+            children
+                ?
+                    <button
+                        className={classes}
+                        disabled={disabled}
+                        {...restProps}
+                    >
+                        <span>{children}</span>
+                    </button>
+                :
+                    <></>
         )
     }
 }
 
 Button.defaultProps = {
-    /**
-     * Checks if the button should be disabled
-     */
-    disabled: false,
-    /**
-    The btnType content of the button
-    */
-    btnType: 'default'
+    // disabled: false,
+    // type: 'default'
 }
 
 export default Button;
