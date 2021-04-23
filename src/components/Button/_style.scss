@@ -1,19 +1,52 @@
 .kop-btn {
     position: relative;
+    overflow: hidden;
     display: inline-block;
     white-space: nowrap;
     text-align: center;
     vertical-align: middle;
     background-image: none;
     cursor: pointer;
+    background: $white;
+    border: $btn-border-width solid $gray-400;
     color: $body-color;
     font-weight: $btn-font-weight;
     line-height: $btn-line-height;
-    border: $btn-border-width solid transparent;
     box-shadow: $btn-box-shadow;
     transition: $btn-transition;
     @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $border-radius);
+    &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        transform: scale(0, 0);
+        opacity: .3;
+        transition: .4s;
+    }
+    &:active:after {
+        background-image: radial-gradient(circle, $primary 10%, transparent 10%);
+        background-repeat: no-repeat;
+        background-position: 50%;
+        transform: scale(10, 10);
+        opacity: 0;
+        transition: transform .4s, opacity .5s;
+    }
+    &:hover {
+        background: $white;
+        border-color: $primary;
+        color: $primary;
+    }
+    &:focus {
+        background: $white;
+        border-color: $primary;
+        color: $primary;
+    }
     &.disabled,
+    &:disabled,
     &[disabled] {
         cursor: not-allowed;
         opacity: $btn-disabled-opacity;
@@ -33,15 +66,29 @@
 }
 
 .kop-btn-primary {
-    @include button-style($primary, $primary, $white)
+    @include button-style($primary, $primary, $white);
+    &.kop-btn-background-ghost {
+        @include button-style(transparent, $white, $white, transparent, $primary, $primary);
+    }
 }
 
 .kop-btn-danger {
-    @include button-style($danger, $danger, $white)
+    @include button-style($danger, $danger, $white);
+    &.kop-btn-background-ghost {
+        @include button-style(transparent, $white, $white, transparent, $danger, $danger);
+    }
 }
 
-.kop-btn-default {
-    @include button-style($white, $gray-400, $body-color, $white, $primary, $primary)
+.kop-btn-text {
+    box-shadow: none;
+    @include button-style($white, $white, $body-color, $gray-100, $gray-100);
+    &.kop-btn-background-ghost {
+        @include button-style(transparent, transparent, $white, transparent, transparent, $primary);
+    }
+}
+
+.kop-btn-dashed {
+    border-style: dashed;
 }
 
 .kop-btn-link {
@@ -49,18 +96,38 @@
     color: $btn-link-color;
     text-decoration: $link-decoration;
     box-shadow: none;
+    border: none;
+    &:active:after {
+        background-image: none;
+    }
     &:hover {
         color: $btn-link-hover-color;
         text-decoration: $link-hover-decoration;
     }
-    &:focus,
-    &.focus {
+    &:focus {
         text-decoration: $link-hover-decoration;
         box-shadow: none;
     }
+    &.disabled,
     &:disabled,
-    &.disabled {
+    &[disabled] {
         color: $btn-link-disabled-color;
         pointer-events: none;
+    }
+}
+
+.kop-btn-background-ghost {
+    box-shadow: none;
+    background: transparent;
+    border-color: $white;
+    color: $white;
+    &:active {
+        background: transparent;
+    }
+    &:hover {
+        background: transparent;
+    }
+    &:focus {
+        background: transparent;
     }
 }

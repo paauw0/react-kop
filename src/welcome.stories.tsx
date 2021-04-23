@@ -36,8 +36,7 @@ const Template: Story = (args) => <Welcome {...args} />;
 
 export const SimpleUpload = Template.bind({});
 SimpleUpload.args = {
-    // children: 'Button',
-    // btnType: 'default'
+    
 };
 SimpleUpload.storyName = 'SimpleUpload';
 SimpleUpload.parameters = {

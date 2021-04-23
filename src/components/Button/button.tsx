@@ -9,8 +9,6 @@ type ButtonShape = 'circle' | 'round'
 type ButtonHTMLType = 'submit' | 'button' | 'reset'
 
 interface BaseButtonProps {
-    /** 设置 Button 的 class */
-    className?: string;
     /** 设置 Button 的类型 */
     type?: ButtonType;
     /** 设置 Button 的形状 */
@@ -21,6 +19,8 @@ interface BaseButtonProps {
     disabled?: boolean;
     /** 设置 Button 的背景透明 */
     ghost?: boolean;
+    /** 设置 Button 的 class */
+    className?: string;
     /** 设置 Button 的内容 */
     children?: React.ReactNode;
 }
@@ -41,9 +41,11 @@ export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
 const Button: React.FC<ButtonProps> = (props) => {
     const {
         type,
-        className,
-        disabled,
+        shape,
         size,
+        disabled,
+        ghost,
+        className,
         children,
         href,
         ...restProps
@@ -52,6 +54,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     const classes = classNames('kop-btn', className, {
         [`kop-btn-${type}`]: type,
         [`kop-btn-${size}`]: size,
+        'kop-btn-background-ghost': ghost || type === 'ghost',
         'disabled': (type === 'link') && disabled
     })
 

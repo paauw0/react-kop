@@ -8,7 +8,7 @@ export default {
     component: Button,
     // 给所有 case 添加参数
     args: {
-        // onClick: action('click')
+        onClick: action('click')
     },
     // 给所有 case 添加特定的参数
     argTypes: {
@@ -50,8 +50,8 @@ const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
 export const DefaultButton = Template.bind({});
 DefaultButton.args = {
-    // children: 'Simple Button',
-    // type: 'default'
+    children: 'Simple Button',
+    type: 'default'
 };
 DefaultButton.storyName = 'Simple Button';
 // 给特定 case 添加展示样式，但是 Docs 文档里 Show code 展示代码有问题
@@ -68,26 +68,51 @@ DefaultButton.parameters = {
 
 export const PrimaryButton = Template.bind({});
 PrimaryButton.args = {
-    // children: 'Primary Button',
-    // type: 'primary'
+    children: 'Primary Button',
+    type: 'primary'
 };
 PrimaryButton.storyName = 'Primary Button';
 
 export const DangerButton = Template.bind({});
 DangerButton.args = {
-    // children: 'Danger Button',
-    // type: 'danger'
+    children: 'Danger Button',
+    type: 'danger'
 };
 DangerButton.storyName = 'Danger Button';
 
 export const LinkButton = Template.bind({});
-// LinkButton.args = {
-//     children: 'Link Button',
-//     type: 'link',
-//     href: 'https://www.baidu.com',
-//     target: '_blank'
-// };
+LinkButton.args = {
+    children: 'Link Button',
+    type: 'link',
+    href: 'https://www.baidu.com',
+    target: '_blank'
+};
 LinkButton.storyName = 'Link Button';
-LinkButton.parameters = {
-    
-}
+
+export const TextButton = Template.bind({});
+TextButton.args = {
+    children: 'Text Button',
+    type: 'text'
+};
+TextButton.storyName = 'Text Button';
+
+export const GhostButton = Template.bind({});
+GhostButton.args = {
+    children: 'Ghost Button',
+    type: 'default',
+    ghost: true,
+};
+GhostButton.storyName = 'Ghost Button';
+GhostButton.decorators = [
+    (Story) => (
+        <div style={{
+            background: '#0f0',
+            width: '300px',
+            height: '200px',
+            lineHeight: '200px',
+            textAlign: 'center'
+        }}>
+          <Story />
+        </div>
+    ),
+]

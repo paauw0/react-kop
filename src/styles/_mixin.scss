@@ -10,24 +10,33 @@
     $color,
     $hover-background: lighten($background, 7.5%), // scss内置函数
     $hover-border: lighten($border, 10%),
-    $hover-color: $color
+    $hover-color: $color,
+    $ripple-color: #fff
 ){
     color: $color;
     background: $background;
     border-color: $border;
+    &:active:after {
+        background-image: radial-gradient(circle, $ripple-color 10%, transparent 10%);
+        background-repeat: no-repeat;
+        background-position: 50%;
+        transform: scale(10, 10);
+        opacity: 0;
+        transition: transform .4s, opacity .5s;
+    }
     &:hover {
         color: $hover-color;
         background: $hover-background;
         border-color: $hover-border;
     }
-    &:focus,
-    &.focus {
+    &:focus {
         color: $hover-color;
         background: $hover-background;
         border-color: $hover-border;
     }
+    &.disabled, 
     &:disabled,
-    &.disabled {
+    &[disabled] {
         color: $color;
         background: $background;
         border-color: $border;
