@@ -23,6 +23,8 @@ interface BaseButtonProps {
     className?: string;
     /** 设置 Button 的内容 */
     children?: React.ReactNode;
+    /** 设置 Button 是否显示波纹 */
+    ripple?: boolean;
 }
 
 type NativeButtonProps = {
@@ -47,6 +49,7 @@ const Button: React.FC<ButtonProps> = (props) => {
         ghost,
         className,
         children,
+        ripple,
         href,
         ...restProps
     } = props
@@ -54,6 +57,7 @@ const Button: React.FC<ButtonProps> = (props) => {
     const classes = classNames('kop-btn', className, {
         [`kop-btn-${type}`]: type,
         [`kop-btn-${size}`]: size,
+        'kop-btn-ripple': ripple,
         'kop-btn-background-ghost': ghost || type === 'ghost',
         'disabled': (type === 'link') && disabled
     })
@@ -92,6 +96,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 Button.defaultProps = {
     // disabled: false,
     // type: 'default'
+    ripple: true
 }
 
 export default Button;

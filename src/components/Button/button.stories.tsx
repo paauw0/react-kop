@@ -29,6 +29,13 @@ export default {
                 options: ['default', 'primary', 'danger', 'link', 'dashed', 'text', 'ghost']
             } 
         },
+        ripple: {
+            name: 'ripple',
+            defaultValue: true,
+            control: {
+                type: 'change',
+            }
+        }
     },
     // 给所有 case 添加展示参数
     parameters: {

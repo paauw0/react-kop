@@ -1,21 +1,54 @@
 .kop-btn {
     position: relative;
-    overflow: hidden;
     display: inline-block;
     white-space: nowrap;
     text-align: center;
     vertical-align: middle;
     background-image: none;
     cursor: pointer;
-    background: $white;
+    // background: $white;
     border: $btn-border-width solid $gray-400;
-    color: $body-color;
+    // color: $body-color;
     font-weight: $btn-font-weight;
     line-height: $btn-line-height;
     box-shadow: $btn-box-shadow;
     transition: $btn-transition;
     @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $border-radius);
-    &:after {
+    @include button-style($white, $gray-400, $body-color, $white, $primary, $primary);
+    &.disabled,
+    &:disabled,
+    &[disabled] {
+        cursor: not-allowed;
+        opacity: $btn-disabled-opacity;
+        box-shadow: none;
+        > * {
+            pointer-events: none;
+        }
+    }
+    // &:after {
+    //     content: "";
+    //     display: block;
+    //     position: absolute;
+    //     top: 0;
+    //     right: 0;
+    //     bottom: 0;
+    //     left: 0;
+    //     transform: scale(0, 0);
+    //     opacity: .3;
+    //     transition: .4s;
+    // }
+    // &:active:after {
+    //     background-image: radial-gradient(circle, $primary 10%, transparent 10%);
+    //     background-repeat: no-repeat;
+    //     background-position: 50%;
+    //     transform: scale(10, 10);
+    //     opacity: 0;
+    //     transition: transform .4s, opacity .5s;
+    // }
+    &.kop-btn-ripple {
+        overflow: hidden;
+    }
+    &.kop-btn-ripple:after {
         content: "";
         display: block;
         position: absolute;
@@ -27,33 +60,13 @@
         opacity: .3;
         transition: .4s;
     }
-    &:active:after {
+    &.kop-btn-ripple:active:after {
         background-image: radial-gradient(circle, $primary 10%, transparent 10%);
         background-repeat: no-repeat;
         background-position: 50%;
         transform: scale(10, 10);
         opacity: 0;
         transition: transform .4s, opacity .5s;
-    }
-    &:hover {
-        background: $white;
-        border-color: $primary;
-        color: $primary;
-    }
-    &:focus {
-        background: $white;
-        border-color: $primary;
-        color: $primary;
-    }
-    &.disabled,
-    &:disabled,
-    &[disabled] {
-        cursor: not-allowed;
-        opacity: $btn-disabled-opacity;
-        box-shadow: none;
-        > * {
-            pointer-events: none;
-        }
     }
 }
 
@@ -68,14 +81,30 @@
 .kop-btn-primary {
     @include button-style($primary, $primary, $white);
     &.kop-btn-background-ghost {
-        @include button-style(transparent, $white, $white, transparent, $primary, $primary);
+        @include button-style(transparent, $white, $white, transparent, $primary, $primary, $primary);
+    }
+    &.kop-btn-ripple:active:after {
+        background-image: radial-gradient(circle, $primary 10%, transparent 10%);
+        background-repeat: no-repeat;
+        background-position: 50%;
+        transform: scale(10, 10);
+        opacity: 0;
+        transition: transform .4s, opacity .5s;
     }
 }
 
 .kop-btn-danger {
     @include button-style($danger, $danger, $white);
     &.kop-btn-background-ghost {
-        @include button-style(transparent, $white, $white, transparent, $danger, $danger);
+        @include button-style(transparent, $white, $white, transparent, $danger, $danger, $danger);
+    }
+    &.kop-btn-ripple:active:after {
+        background-image: radial-gradient(circle, $danger 10%, transparent 10%);
+        background-repeat: no-repeat;
+        background-position: 50%;
+        transform: scale(10, 10);
+        opacity: 0;
+        transition: transform .4s, opacity .5s;
     }
 }
 
