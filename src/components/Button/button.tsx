@@ -56,6 +56,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 
     const classes = classNames('kop-btn', className, {
         [`kop-btn-${type}`]: type,
+        [`kop-btn-${shape}`]: shape,
         [`kop-btn-${size}`]: size,
         'kop-btn-ripple': ripple,
         'kop-btn-background-ghost': ghost || type === 'ghost',
@@ -96,7 +97,7 @@ const Button: React.FC<ButtonProps> = (props) => {
 Button.defaultProps = {
     // disabled: false,
     // type: 'default'
-    ripple: true
+    // ripple: true
 }
 
 export default Button;

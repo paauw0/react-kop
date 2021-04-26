@@ -18,8 +18,8 @@ export default {
                 name: 'string',
                 required: false,
             },
+            description: '设置按钮类型',
             defaultValue: 'default',
-            description: 'button type',
             table: {
                 // type: { summary: 'string', detail: 'something really really long' },
                 defaultValue: { summary: 'default' },
@@ -29,11 +29,43 @@ export default {
                 options: ['default', 'primary', 'danger', 'link', 'dashed', 'text', 'ghost']
             } 
         },
+        shape: {
+            name: 'shape',
+            type: {
+                name: 'string',
+                required: false,
+            },
+            description: '设置按钮形状',
+            control: {
+                type: 'inline-radio',
+                options: ['circle', 'round']
+            } 
+        },
+        size: {
+            name: 'size',
+            type: {
+                name: 'string',
+                required: false,
+            },
+            description: '设置按钮大小',
+            control: {
+                type: 'inline-radio',
+                options: ['large', 'middle', 'small', 'lg', 'md', 'sm']
+            } 
+        },
         ripple: {
             name: 'ripple',
-            defaultValue: true,
+            type: {
+                name: 'boolean',
+                required: false,
+            },
+            description: '设置按钮波纹',
+            defaultValue: 'true',
+            table: {
+                defaultValue: { summary: 'true' },
+            },
             control: {
-                type: 'change',
+                type: 'boolean',
             }
         }
     },
@@ -55,12 +87,13 @@ export default {
 
 const Template: Story<ButtonProps> = (args) => <Button {...args} />;
 
+// 
 export const DefaultButton = Template.bind({});
 DefaultButton.args = {
-    children: 'Simple Button',
+    children: 'Default Button',
     type: 'default'
 };
-DefaultButton.storyName = 'Simple Button';
+DefaultButton.storyName = 'Default Button';
 // 给特定 case 添加展示样式，但是 Docs 文档里 Show code 展示代码有问题
 // DefaultButton.decorators = [(Story) => <div style={{ margin: '3em' }}><Story/></div>]
 // 给特定 case 添加展示参数

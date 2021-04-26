@@ -6,14 +6,16 @@
     vertical-align: middle;
     background-image: none;
     cursor: pointer;
+    outline: 0;
     // background: $white;
     border: $btn-border-width solid $gray-400;
     // color: $body-color;
-    font-weight: $btn-font-weight;
     line-height: $btn-line-height;
+    font-size: $btn-font-size;
+    font-weight: $btn-font-weight;
     box-shadow: $btn-box-shadow;
     transition: $btn-transition;
-    @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $border-radius);
+    @include button-size($btn-height, $btn-padding-y, $btn-padding-x, $btn-font-size, $border-radius);
     @include button-style($white, $gray-400, $body-color, $white, $primary, $primary);
     &.disabled,
     &:disabled,
@@ -70,12 +72,29 @@
     }
 }
 
-.kop-btn-lg {
-    @include button-size($btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $border-radius-lg);  
+.kop-btn-large, .kop-btn-lg {
+    @include button-size($btn-height-lg, $btn-padding-y-lg, $btn-padding-x-lg, $btn-font-size-lg, $border-radius-lg);  
+    &.kop-btn-round {
+        border-radius: $btn-height-lg;
+        min-width: $btn-height-lg;
+    }
 }
 
-.kop-btn-sm {
-    @include button-size($btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $border-radius-sm);  
+.kop-btn-small, .kop-btn-sm {
+    @include button-size($btn-height-sm, $btn-padding-y-sm, $btn-padding-x-sm, $btn-font-size-sm, $border-radius-sm);  
+    &.kop-btn-round {
+        border-radius: $btn-height-sm;
+        min-width: $btn-height-sm;
+    }
+}
+
+.kop-btn-circle {
+    border-radius: 50%;
+    min-width: $btn-height;
+}
+
+.kop-btn-round {
+    border-radius: $btn-height;
 }
 
 .kop-btn-primary {
